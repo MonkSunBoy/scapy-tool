@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # 打印ARP应答的包记录，发现ARP欺骗
+# http://www.rfc-editor.org/rfc/rfc826.txt
 
 from scapy.all import *
 import time
