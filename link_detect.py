@@ -8,9 +8,9 @@ import time
 import logging
 import ip_number
 
-class IcmpMonk:
+class LinkMonk:
     '''
-    http://www.rfc-editor.org/rfc/rfc792.txt
+    http://www.rfc-editor.org/rfc/rfc7042.txt
     '''
 
     data = {
