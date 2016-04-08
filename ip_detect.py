@@ -1,5 +1,10 @@
 #! /usr/bin/env python
 
+from scapy.all import *
+import time
+import os
+import logging
+
 class InternetProtocolNumbers:
     ''' INTERNET PROTOCOL NUMBERS
         refenrence: RFC 790(Page 5)
@@ -263,5 +268,23 @@ class InternetProtocolNumbers:
             254 : 'Unassigned',
             255 : 'Reserved'}
 
-    def number_to_string(self, number):
-        return self.data[number]
+logger = logging.getLogger('main')
+logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
+logger.setLevel(logging.DEBUG)
+
+def process(x):
+    protocol = x[IP].proto
+    src = x[IP].src
+    dst = x[IP].dst
+
+    logger.info(src + '\t->\t' + dst + '\t' +
+            InternetProtocolNumbers.data[protocol])
+
+def main():
+    sniff(prn=lambda x: process(x), lfilter=lambda x: hasattr(x, 'type')
+            and hex(x.type) == '0x800')
+
+if __name__ == "__main__":
+    logger.info('sniff packet......')
+    main()
+
